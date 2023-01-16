@@ -21,11 +21,14 @@ const sendingEmail = async (req, res) => {
     });
     const body = req.body;
     let message = {
-      from: body.email,
+      from: {
+        address: body.email,
+        name: body.email
+      },
       to: process.env.EMAIL,
-      subject: body.subject + "✔",
-      messages: body.message,
-      name: body.name,
+      subject: body.subject,
+      text: body.message
+      // html: body.message
     };
     console.log(message);
     transporter.sendMail(message, (err, info) => {
